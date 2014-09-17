@@ -1,4 +1,7 @@
+package src;
+
 import java.util.ArrayList;
+import java.lang.StringBuffer;
 
 
 public class Group {
@@ -25,12 +28,13 @@ public class Group {
 		return false;
 	}
 
-	public void getStudents(){
-		String result = "";
+	public String getStudents(){
+		StringBuffer result = new StringBuffer("");
 		for(int i =0; i < this.students.size(); i++){
-			result += students.get(i) + "\n";
+			result.append(students.get(i));
+			result.append("\n");
 		}
-		System.out.println(result);
+		return result.toString();
 	}
 
 	public int size(){

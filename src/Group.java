@@ -10,6 +10,13 @@ public class Group {
 	public Group(){
 		students = new ArrayList<String>();
 	}
+	
+	public Group(String[] studs){
+		students = new ArrayList<String>();
+		for(String s: studs){
+			students.add(s);
+		}
+	}
 
 	public boolean addStudent(String stud){
 		int old = students.size();

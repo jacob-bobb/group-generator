@@ -20,7 +20,6 @@ public class GroupGenerator implements Students {
 			 String[] students = s.split(" ");
 			 allGroups.add(new Group(students));
 		}
-		System.out.println(allGroups.size());
 		fileReader.close();
 	}
 	Group[] groups = new Group[6];
@@ -28,6 +27,10 @@ public class GroupGenerator implements Students {
 	
 	public static void main(String[] args) throws IOException {
 		loadInput("students.txt");
+		
+		for(Group g: allGroups){
+			System.out.println(g.getStudents());
+		}
 	}
 
 }

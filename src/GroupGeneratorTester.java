@@ -52,7 +52,7 @@ public class GroupGeneratorTester {
 			printFail(bExpected, bActual, 3);
 		}
 		
-		/*
+		
 		Group g2 = new Group();
 		g2.addStudent("Lizzy");
 		g2.addStudent("Kate");
@@ -63,21 +63,46 @@ public class GroupGeneratorTester {
 		g3.addStudent("Whitney");
 		g3.addStudent("Jennie");
 		
-		System.out.println("\nEquals");
-		System.out.println(g1.equals(g2)); //should be false
-		System.out.println(g1.equals(g3)); //should be true
+		//Test 4
+		bExpected = false;
+		if(!(bActual = g1.equals(g2))){
+			printPass(4);
+		}
+		else{
+			printFail(bExpected, bActual, 4);
+		}
 		
+		//Test 5
+		bExpected = true;
+		if((bActual = g1.equals(g3))){
+			printPass(5);
+		}
+		else{
+			printFail(bExpected, bActual, 5);
+		}
+		
+		//Test 6
 		g3.addStudent("Jesse");
-		System.out.println(g1.equals(g3)); //should still be true
+		if((bActual = g1.equals(g3))){
+			printPass(6);
+		}
+		else{
+			printFail(bExpected, bActual, 6);
+		}
 		
+		//Test 7
+		bExpected = false;
 		Group g4 = new Group();
 		g4.addStudent("Lizzy");
 		g4.addStudent("Annie");
 		g4.addStudent("Paul");
 		
-		System.out.println();
-		System.out.println(g2.equals(g4));
-*/
+		if(!(bActual = g2.equals(g4))){
+			printPass(7);
+		}
+		else{
+			printFail(bExpected, bActual, 7);
+		}
 	}
 
 }

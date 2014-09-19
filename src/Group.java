@@ -22,8 +22,12 @@ public class Group {
 		int old = students.size();
 		students.add(stud);
 		return (students.size() == old + 1);
-
-
+	}
+	
+	public boolean removeStudent(String name){
+		int oldSize = students.size();
+		students.remove(name);
+		return students.size() == oldSize - 1;
 	}
 
 	public boolean contains(String sName){
@@ -35,7 +39,18 @@ public class Group {
 		return false;
 	}
 
-	public String getStudents(){
+	public String toString(){
+		StringBuffer result = new StringBuffer("");
+		for(String s: students){
+			result.append(s);
+			result.append(" "); 
+		}
+		result.deleteCharAt(result.length()-1);
+		result.append("\n");
+		return result.toString();
+	}
+	
+	public String getStudentsForOut(){
 		StringBuffer result = new StringBuffer("");
 		for(int i =0; i < this.students.size(); i++){
 			result.append(students.get(i));

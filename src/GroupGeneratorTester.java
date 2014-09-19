@@ -106,7 +106,7 @@ public class GroupGeneratorTester {
 		
 		//Test 8
 		expected = "Jacob Whitney Jennie\n";
-		actual = g1.getStudents();
+		actual = g1.toString();
 		if(actual.equals(expected)){
 			printPass(8);
 		}

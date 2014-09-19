@@ -16,7 +16,7 @@ public interface Students {
 	int KAREN = 12;
 	int MAKALIE = 13;
 	int MATT = 14;
-	int RENZE = 15;
+	int RUNZE = 15;
 	int ROBERT = 16;
 	int SHELSI = 17;
 	int SWATHI = 18;

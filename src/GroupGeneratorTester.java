@@ -24,7 +24,7 @@ public class GroupGeneratorTester {
 		
 		//Test 1
 		String expected = "Jacob\nWhitney\nJennie\n";
-		String actual = g1.getStudents();
+		String actual = g1.getStudentsForOut();
 		if(actual.equals(expected)){
 			printPass(1);
 		}
@@ -102,6 +102,16 @@ public class GroupGeneratorTester {
 		}
 		else{
 			printFail(bExpected, bActual, 7);
+		}
+		
+		//Test 8
+		expected = "Jacob Whitney Jennie\n";
+		actual = g1.getStudents();
+		if(actual.equals(expected)){
+			printPass(8);
+		}
+		else{
+			printFail(expected, actual, 8);
 		}
 	}
 

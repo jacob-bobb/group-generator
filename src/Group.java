@@ -81,7 +81,7 @@ public class Group {
 					count++;
 				}
 			}
-			if(count == 3){
+			if(this.size() != 4 && otherGroup.size() != 4 && count == 3){
 				return true;
 			}
 			else{

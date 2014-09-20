@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -12,6 +13,9 @@ public class GroupGenerator implements Students {
 
 	private static ArrayList<Group> allGroups = new ArrayList<Group>();
 	private static ArrayList<String> students = new ArrayList<String>();
+	private static List<Group> newGroups = new ArrayList<Group>();
+	private static int groupSize;
+	private static int plusOneCount;
 
 	private static void init(String students, Group[] groups){
 		initGroups(groups);
@@ -39,7 +43,7 @@ public class GroupGenerator implements Students {
 
 	}
 
-	private static void output(String fileName, Group[] listOfGroups){
+	private static void output(String fileName, List<Group> listOfGroups){
 		try {
 			FileWriter fw = new FileWriter(fileName, true);
 			int count = 0;
@@ -79,43 +83,86 @@ public class GroupGenerator implements Students {
 		}
 	}
 	
-	public static void createGroup(ArrayList<String> studs, Group[] g){
-		/*ArrayList<String> studentsCopy = new ArrayList<String>(studs);
-		for(int i = 0; i < g.length; ++i){
-			for(int j = 0; j < 3; ++j){
-				int rnd = (int)(Math.random()*studentsCopy.size());
-				g[i].addStudent(studentsCopy.get(rnd));
-				studentsCopy.remove(rnd);
-			}
-		}
-		System.out.println(studs); */
-		
-		createGroupHelper(studs, g, 0);
+	public static void createGroup(ArrayList<String> studs, Group[] groups){
+		ArrayList<String> studentsCopy = new ArrayList<String>(studs);
+		createGroupHelper(studentsCopy, groups);
 	}
 	
-	private static void createGroupHelper(ArrayList<String> studs, Group[] groups, int index){
-		if(index == studs.size()){
-			
+	private static void createGroupHelper(ArrayList<String> studs, Group[] groups){
+		if(studs.size() == 1){
+			groups[0].addStudent(studs.get(0));
+			if(isValid(groups) && noDoubles(groups)){
+				newGroups = Arrays.asList(groups);
+				return;
+			}
 		}
 		else{
 			for(Group g: groups){
-				//add student to a group, then go to next student in list
-				//if conflict, roll back
-				g.addStudent(studs.get(index));
-				createGroupHelper(studs, groups, index+1);
-				g.removeStudent(studs.get(index));
+				if(newGroups.size() == 0){
+					if(g.size() != groupSize){// && g.size() != (groupSize+1)){
+						int rnd = (int)(Math.random() * studs.size());
+						g.addStudent(studs.get(rnd));
+						String removedStudent = studs.remove(rnd);
+						createGroupHelper(studs, groups);
+						studs.add(removedStudent);
+					}
+				}
 			}
 		}
 	}
+	
+	private static boolean noDoubles(Group[] newGroups){
+		for(Group g: newGroups){
+			for(Group oldGroup: allGroups){
+				if(g.equals(oldGroup)){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	private static boolean isValid(Group[] groups){
+		for(Group g: groups){
+			if(g.size() == 0 || g.size() < groupSize){
+				System.out.println("FALSE");
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public static void main(String[] args) throws IOException {
-		Group[] groups = new Group[6];
-		init("students.txt", groups);
-
-		createGroup(students,groups);
+		Group[] Groups = new Group[6];
+		init("students.txt", Groups);
+		//String[] t = {"Jacob", "Whitney", "Jennie", "Lizzie", "Paul", "Brandon"};
+		/*
+		ArrayList<String> test = new ArrayList<String>();
 		
-		System.out.println(Arrays.toString(groups));
-		System.out.println(students);
+		for(String s: t){
+			test.add(s);
+		} */
+		
+		groupSize = 3;
+		int numGroups = students.size()/groupSize;
+		plusOneCount = students.size()%groupSize;
+		
+		System.out.println("You will have " + numGroups + " groups: " + (numGroups-plusOneCount) + " groups of "
+				+ groupSize + " and " + plusOneCount + " groups of " + (groupSize + 1));
+		
+		createGroup(students, Groups);
+		
+		StringBuffer output = new StringBuffer("");
+		output.append("Your groups are:\n");
+		
+		for(int i = 0; i < newGroups.size(); ++i){
+			output.append("Group " + (i+ 1) + ": ");
+			output.append(newGroups.get(i).toString());
+		}
+		System.out.println(output);
+		
+		output("oldGroups.txt", newGroups);
+		
 		System.out.println("Done.");
 	}
 
